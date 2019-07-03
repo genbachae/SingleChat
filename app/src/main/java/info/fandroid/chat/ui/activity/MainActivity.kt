@@ -1,7 +1,8 @@
-package info.fandroid.chat
+package info.fandroid.chat.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import info.fandroid.chat.R
 
 class MainActivity : AppCompatActivity() {
 
