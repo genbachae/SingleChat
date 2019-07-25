@@ -1,7 +1,7 @@
 package info.fandroid.chat.domain.interactor
 
 import info.fandroid.chat.domain.type.Either
-import info.fandroid.chat.domain.type.exception.Failure
+import info.fandroid.chat.domain.type.Failure
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 

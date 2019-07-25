@@ -2,7 +2,7 @@ package info.fandroid.chat.domain.account
 
 import info.fandroid.chat.domain.type.None
 import info.fandroid.chat.domain.type.Either
-import info.fandroid.chat.domain.type.exception.Failure
+import info.fandroid.chat.domain.type.Failure
 
 interface AccountRepository {
     fun login(email: String, password: String): Either<Failure, AccountEntity>
