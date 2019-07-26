@@ -1,6 +1,6 @@
-package info.fandroid.chat.ui.activity
+package info.fandroid.chat.ui.register
 
-import info.fandroid.chat.ui.fragment.RegisterFragment
+import info.fandroid.chat.ui.core.BaseActivity
 
 class RegisterActivity : BaseActivity() {
 

@@ -1,4 +1,4 @@
-package info.fandroid.chat.ui.activity
+package info.fandroid.chat.ui.core
 
 import android.app.Activity
 import android.content.Context
@@ -13,9 +13,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import info.fandroid.chat.R
-import info.fandroid.chat.domain.type.exception.Failure
-import info.fandroid.chat.ui.App
-import info.fandroid.chat.ui.fragment.BaseFragment
+import info.fandroid.chat.domain.type.Failure
+import info.fandroid.chat.ui.core.navigation.Navigator
 import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
 
@@ -26,9 +25,14 @@ abstract class BaseActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    @Inject
+    lateinit var navigator: Navigator
+
+    open val contentId = R.layout.activity_layout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_layout)
+        setContentView(contentId)
 
         setSupportActionBar(toolbar)
         addFragment(savedInstanceState)
@@ -70,6 +74,8 @@ abstract class BaseActivity : AppCompatActivity() {
             is Failure.NetworkConnectionError -> showMessage(getString(R.string.error_network))
             is Failure.ServerError -> showMessage(getString(R.string.error_server))
             is Failure.EmailAlreadyExistError -> showMessage(getString(R.string.error_email_already_exist))
+            is Failure.AuthError -> showMessage(getString(R.string.error_auth))
+            is Failure.TokenError -> navigator.showLogin(this)
         }
     }
 

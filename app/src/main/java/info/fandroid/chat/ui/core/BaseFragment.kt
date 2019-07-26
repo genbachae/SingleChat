@@ -1,22 +1,16 @@
-package info.fandroid.chat.ui.fragment
+package info.fandroid.chat.ui.core
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import info.fandroid.chat.R
-import info.fandroid.chat.domain.type.exception.Failure
-import info.fandroid.chat.ui.activity.BaseActivity
-import info.fandroid.chat.ui.activity.base
-import kotlinx.android.synthetic.main.toolbar.*
+import info.fandroid.chat.domain.type.Failure
+import info.fandroid.chat.ui.core.navigation.Navigator
 import javax.inject.Inject
 
 abstract class BaseFragment : Fragment() {
@@ -26,7 +20,8 @@ abstract class BaseFragment : Fragment() {
     open val titleToolbar = R.string.app_name
     open val showToolbar = true
 
-
+    @Inject
+    lateinit var navigator: Navigator
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory

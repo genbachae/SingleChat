@@ -1,4 +1,4 @@
-package info.fandroid.chat.ui.service
+package info.fandroid.chat.ui.firebase
 
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
