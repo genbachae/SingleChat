@@ -1,16 +1,24 @@
 package info.fandroid.chat.ui.firebase
 
+import android.os.Handler
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import info.fandroid.chat.domain.account.UpdateToken
 import info.fandroid.chat.ui.App
 import javax.inject.Inject
+import android.os.Looper
+import org.json.JSONObject
+
 
 class FirebaseService : FirebaseMessagingService() {
 
     @Inject
     lateinit var updateToken: UpdateToken
+
+    @Inject
+    lateinit var notificationHelper: NotificationHelper
 
     override fun onCreate() {
         super.onCreate()
@@ -18,7 +26,10 @@ class FirebaseService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
+        Handler(Looper.getMainLooper()).post {
+            notificationHelper.sendNotification(remoteMessage)
 
+        }
     }
 
     override fun onNewToken(token: String?) {

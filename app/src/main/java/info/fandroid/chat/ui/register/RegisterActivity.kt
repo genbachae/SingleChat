@@ -1,9 +1,9 @@
 package info.fandroid.chat.ui.register
 
 import info.fandroid.chat.ui.core.BaseActivity
+import info.fandroid.chat.ui.core.BaseFragment
 
 class RegisterActivity : BaseActivity() {
 
-    override val fragment = RegisterFragment()
-
+    override var fragment: BaseFragment = RegisterFragment()
 }

@@ -8,6 +8,8 @@ import info.fandroid.chat.presentation.injection.RemoteModule
 import info.fandroid.chat.presentation.injection.ViewModelModule
 import info.fandroid.chat.ui.core.navigation.RouteActivity
 import info.fandroid.chat.ui.firebase.FirebaseService
+import info.fandroid.chat.ui.friends.FriendRequestsFragment
+import info.fandroid.chat.ui.friends.FriendsFragment
 import info.fandroid.chat.ui.home.HomeActivity
 import info.fandroid.chat.ui.home.ChatsFragment
 import info.fandroid.chat.ui.login.LoginFragment
@@ -47,6 +49,8 @@ interface AppComponent {
     fun inject(fragment: RegisterFragment)
     fun inject(fragment: LoginFragment)
     fun inject(fragment: ChatsFragment)
+    fun inject(fragment: FriendsFragment)
+    fun inject(fragment: FriendRequestsFragment)
 
     //services
     fun inject(service: FirebaseService)
