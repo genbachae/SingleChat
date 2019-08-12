@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import info.fandroid.chat.presentation.viewmodel.AccountViewModel
 import info.fandroid.chat.presentation.viewmodel.FriendsViewModel
+import info.fandroid.chat.presentation.viewmodel.MediaViewModel
 import info.fandroid.chat.presentation.viewmodel.ViewModelFactory
 
 @Module
@@ -23,4 +24,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(FriendsViewModel::class)
     abstract fun bindFriendsViewModel(friendsViewModel: FriendsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MediaViewModel::class)
+    abstract fun bindMediaViewModel(mediaViewModel: MediaViewModel): ViewModel
 }
