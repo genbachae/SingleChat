@@ -4,8 +4,8 @@ import android.view.View
 import info.fandroid.chat.R
 import info.fandroid.chat.domain.friends.FriendEntity
 import info.fandroid.chat.ui.core.BaseAdapter
+import info.fandroid.chat.ui.core.GlideHelper
 import kotlinx.android.synthetic.main.item_friend.view.tvName
-import kotlinx.android.synthetic.main.item_friend.view.tvStatus
 import kotlinx.android.synthetic.main.item_friend_request.view.*
 
 open class FriendRequestsAdapter : BaseAdapter<FriendRequestsAdapter.FriendRequestViewHolder>() {
@@ -30,6 +30,7 @@ open class FriendRequestsAdapter : BaseAdapter<FriendRequestsAdapter.FriendReque
 
 
             (item as? FriendEntity)?.let {
+                GlideHelper.loadImage(view.context, it.image, view.imgPhoto, R.drawable.ic_account_circle)
                 view.tvName.text = it.name
             }
 
