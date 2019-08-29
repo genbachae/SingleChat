@@ -101,7 +101,7 @@ class HomeActivity : BaseActivity() {
         }
 
         btnRequests.setOnClickListener {
-            friendsViewModel.getFriendRequests()
+            friendsViewModel.getFriendRequests(true)
 
             if (requestContainer.visibility == View.VISIBLE) {
                 requestContainer.visibility = View.GONE
