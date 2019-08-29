@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class GetFriendRequests @Inject constructor(
     private val friendsRepository: FriendsRepository
-) : UseCase<List<FriendEntity>, None>() {
+) : UseCase<List<FriendEntity>, Boolean>() {
 
-    override suspend fun run(params: None) = friendsRepository.getFriendRequests()
+    override suspend fun run(needFetch: Boolean) = friendsRepository.getFriendRequests(needFetch)
 }

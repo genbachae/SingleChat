@@ -43,6 +43,7 @@ ext {
     circleImageViewVersion = "3.0.0"
     permissionUtilsVersion = "1.0.9"
     glideVersion = "4.9.0"
+    roomVersion = "2.0.0"
 }
 
 
@@ -103,6 +104,10 @@ dependencies {
     //glide
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
+
+    //room
+    implementation "androidx.room:room-runtime:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
 
 
     //test
