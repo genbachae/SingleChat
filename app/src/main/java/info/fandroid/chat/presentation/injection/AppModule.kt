@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import dagger.Module
 import dagger.Provides
+import info.fandroid.chat.cache.ChatDatabase
 import info.fandroid.chat.data.account.AccountCache
 import info.fandroid.chat.data.account.AccountRemote
 import info.fandroid.chat.data.account.AccountRepositoryImpl
+import info.fandroid.chat.data.friends.FriendsCache
 import info.fandroid.chat.data.friends.FriendsRemote
 import info.fandroid.chat.data.friends.FriendsRepositoryImpl
 import info.fandroid.chat.data.media.MediaRepositoryImpl
@@ -30,8 +32,8 @@ class AppModule(private val context: Context) {
 
     @Provides
     @Singleton
-    fun provideFriendsRepository(remote: FriendsRemote, accountCache: AccountCache): FriendsRepository {
-        return FriendsRepositoryImpl(accountCache, remote)
+    fun provideFriendsRepository(remote: FriendsRemote, accountCache: AccountCache, friendsCache: FriendsCache): FriendsRepository {
+        return FriendsRepositoryImpl(accountCache, remote, friendsCache)
     }
 
     @Provides
