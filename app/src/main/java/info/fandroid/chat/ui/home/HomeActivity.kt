@@ -6,7 +6,9 @@ import android.os.Looper
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
+import androidx.databinding.DataBindingUtil
 import info.fandroid.chat.R
+import info.fandroid.chat.databinding.ActivityNavigationBinding
 import info.fandroid.chat.domain.account.AccountEntity
 import info.fandroid.chat.domain.friends.FriendEntity
 import info.fandroid.chat.domain.type.Failure
@@ -16,14 +18,11 @@ import info.fandroid.chat.presentation.viewmodel.FriendsViewModel
 import info.fandroid.chat.ui.App
 import info.fandroid.chat.ui.core.BaseActivity
 import info.fandroid.chat.ui.core.BaseFragment
-import info.fandroid.chat.ui.core.GlideHelper
 import info.fandroid.chat.ui.core.ext.onFailure
 import info.fandroid.chat.ui.core.ext.onSuccess
 import info.fandroid.chat.ui.firebase.NotificationHelper
 import info.fandroid.chat.ui.friends.FriendRequestsFragment
 import info.fandroid.chat.ui.friends.FriendsFragment
-import kotlinx.android.synthetic.main.activity_navigation.*
-import kotlinx.android.synthetic.main.navigation.*
 import javax.inject.Inject
 
 
@@ -35,8 +34,15 @@ class HomeActivity : BaseActivity() {
 
     private lateinit var accountViewModel: AccountViewModel
 
+    private lateinit var binding: ActivityNavigationBinding
+
     @Inject
     lateinit var friendsViewModel: FriendsViewModel
+
+
+    override fun setupContent() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_navigation)
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,56 +67,57 @@ class HomeActivity : BaseActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.menu)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        supportFragmentManager.beginTransaction().replace(R.id.requestContainer, FriendRequestsFragment()).commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.requestContainer, FriendRequestsFragment()).commit()
 
         val type: String? = intent.getStringExtra("type")
         when (type) {
             NotificationHelper.TYPE_ADD_FRIEND -> {
                 openDrawer()
                 friendsViewModel.getFriendRequests()
-                requestContainer.visibility = View.VISIBLE
+                binding.navigation.requestContainer.visibility = View.VISIBLE
             }
         }
 
-        btnLogout.setOnClickListener {
+        binding.navigation.btnLogout.setOnClickListener {
             accountViewModel.logout()
         }
 
-        btnChats.setOnClickListener {
+        binding.navigation.btnChats.setOnClickListener {
             replaceFragment(ChatsFragment())
             closeDrawer()
         }
 
-        btnAddFriend.setOnClickListener {
-            if (containerAddFriend.visibility == View.VISIBLE) {
-                containerAddFriend.visibility = View.GONE
+        binding.navigation.btnAddFriend.setOnClickListener {
+            if (binding.navigation.containerAddFriend.visibility == View.VISIBLE) {
+                binding.navigation.containerAddFriend.visibility = View.GONE
             } else {
-                containerAddFriend.visibility = View.VISIBLE
+                binding.navigation.containerAddFriend.visibility = View.VISIBLE
             }
         }
 
-        btnAdd.setOnClickListener {
+        binding.navigation.btnAdd.setOnClickListener {
             hideSoftKeyboard()
             showProgress()
-            friendsViewModel.addFriend(etEmail.text.toString())
+            friendsViewModel.addFriend(binding.navigation.etEmail.text.toString())
         }
 
-        btnFriends.setOnClickListener {
+        binding.navigation.btnFriends.setOnClickListener {
             replaceFragment(FriendsFragment())
             closeDrawer()
         }
 
-        btnRequests.setOnClickListener {
+        binding.navigation.btnRequests.setOnClickListener {
             friendsViewModel.getFriendRequests(true)
 
-            if (requestContainer.visibility == View.VISIBLE) {
-                requestContainer.visibility = View.GONE
+            if (binding.navigation.requestContainer.visibility == View.VISIBLE) {
+                binding.navigation.requestContainer.visibility = View.GONE
             } else {
-                requestContainer.visibility = View.VISIBLE
+                binding.navigation.requestContainer.visibility = View.VISIBLE
             }
         }
 
-        profileContainer.setOnClickListener {
+        binding.navigation.profileContainer.setOnClickListener {
             navigator.showAccount(this)
             Handler(Looper.getMainLooper()).postDelayed({
                 closeDrawer()
@@ -121,10 +128,10 @@ class HomeActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> {
-                if (drawerLayout.isDrawerOpen(navigationView)) {
-                    drawerLayout.closeDrawer(navigationView)
+                if (binding.drawerLayout.isDrawerOpen(binding.navigation.navigationView)) {
+                    binding.drawerLayout.closeDrawer(binding.navigation.navigationView)
                 } else {
-                    drawerLayout.openDrawer(navigationView)
+                    binding.drawerLayout.openDrawer(binding.navigation.navigationView)
                 }
             }
         }
@@ -139,22 +146,17 @@ class HomeActivity : BaseActivity() {
 
     private fun openDrawer() {
         hideSoftKeyboard()
-        drawerLayout.openDrawer(navigationView)
+        binding.drawerLayout.openDrawer(binding.navigation.navigationView)
     }
 
     private fun closeDrawer(animate: Boolean = true) {
         hideSoftKeyboard()
-        drawerLayout.closeDrawer(navigationView, animate)
+        binding.drawerLayout.closeDrawer(binding.navigation.navigationView, animate)
     }
 
     private fun handleAccount(accountEntity: AccountEntity?) {
         accountEntity?.let {
-            GlideHelper.loadImage(this, it.image, ivUserImage)
-            tvUserName.text = it.name
-            tvUserEmail.text = it.email
-            tvUserStatus.text = it.status
-
-            tvUserStatus.visibility = if (it.status.isNotEmpty()) View.VISIBLE else View.GONE
+            binding.navigation.account = it
         }
     }
 
@@ -164,8 +166,8 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun handleAddFriend(none: None?) {
-        etEmail.text.clear()
-        containerAddFriend.visibility = View.GONE
+        binding.navigation.etEmail.text.clear()
+        binding.navigation.containerAddFriend.visibility = View.GONE
 
         hideProgress()
         showMessage("Запрос отправлен.")
@@ -173,8 +175,8 @@ class HomeActivity : BaseActivity() {
 
     private fun handleFriendRequests(requests: List<FriendEntity>?) {
         if (requests?.isEmpty() == true) {
-            requestContainer.visibility = View.GONE
-            if (drawerLayout.isDrawerOpen(navigationView)) {
+            binding.navigation.requestContainer.visibility = View.GONE
+            if (binding.drawerLayout.isDrawerOpen(binding.navigation.navigationView)) {
                 showMessage("Нет входящих приглашений.")
             }
         }
@@ -183,16 +185,19 @@ class HomeActivity : BaseActivity() {
     override fun handleFailure(failure: Failure?) {
         hideProgress()
         when (failure) {
-            Failure.ContactNotFoundError -> navigator.showEmailNotFoundDialog(this, etEmail.text.toString())
+            Failure.ContactNotFoundError -> navigator.showEmailNotFoundDialog(
+                this,
+                binding.navigation.etEmail.text.toString()
+            )
             else -> super.handleFailure(failure)
         }
     }
 
 
     override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(navigationView)) {
+        if (binding.drawerLayout.isDrawerOpen(binding.navigation.navigationView)) {
             hideSoftKeyboard()
-            drawerLayout.closeDrawer(navigationView)
+            binding.drawerLayout.closeDrawer(binding.navigation.navigationView)
         } else {
             super.onBackPressed()
         }
