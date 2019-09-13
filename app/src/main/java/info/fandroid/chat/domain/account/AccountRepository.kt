@@ -16,4 +16,6 @@ interface AccountRepository {
     fun updateAccountLastSeen(): Either<Failure, None>
 
     fun editAccount(entity: AccountEntity): Either<Failure, AccountEntity>
+
+    fun checkAuth(): Either<Failure, Boolean>
 }
