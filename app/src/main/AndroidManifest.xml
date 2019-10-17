@@ -42,6 +42,9 @@
         <!--Account-->
         <activity android:name=".ui.account.AccountActivity"/>
 
+        <!--Messages-->
+        <activity android:name=".ui.home.MessagesActivity"/>
+
 
             <!--SERVICES-->
         <!--Firebase-->

@@ -15,6 +15,7 @@ import info.fandroid.chat.remote.service.ApiService
 import info.fandroid.chat.ui.account.AccountActivity
 import info.fandroid.chat.ui.core.PermissionManager
 import info.fandroid.chat.ui.home.HomeActivity
+import info.fandroid.chat.ui.home.MessagesActivity
 import info.fandroid.chat.ui.login.LoginActivity
 import info.fandroid.chat.ui.register.RegisterActivity
 import info.fandroid.chat.ui.user.UserActivity
@@ -81,6 +82,13 @@ class Navigator
         bundle.putString(ApiService.PARAM_EMAIL, friendEntity.email)
         bundle.putString(ApiService.PARAM_STATUS, friendEntity.status)
         context.startActivity<UserActivity>(args = bundle)
+    }
+
+    fun showChatWithContact(contactId: Long, contactName: String, context: Context) {
+        val bundle = Bundle()
+        bundle.putLong(ApiService.PARAM_CONTACT_ID, contactId)
+        bundle.putString(ApiService.PARAM_NAME, contactName)
+        context.startActivity<MessagesActivity>(args = bundle)
     }
 
 

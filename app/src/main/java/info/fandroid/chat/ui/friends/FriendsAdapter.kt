@@ -8,7 +8,7 @@ import info.fandroid.chat.ui.core.BaseAdapter
 
 open class FriendsAdapter : BaseAdapter<FriendsAdapter.FriendViewHolder>() {
 
-    override fun createHolder(parent: ViewGroup): FriendViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = ItemFriendBinding.inflate(layoutInflater, parent, false)
         return FriendViewHolder(binding)

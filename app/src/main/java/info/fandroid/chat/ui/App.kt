@@ -14,6 +14,7 @@ import info.fandroid.chat.ui.friends.FriendRequestsFragment
 import info.fandroid.chat.ui.friends.FriendsFragment
 import info.fandroid.chat.ui.home.HomeActivity
 import info.fandroid.chat.ui.home.ChatsFragment
+import info.fandroid.chat.ui.home.MessagesFragment
 import info.fandroid.chat.ui.login.LoginFragment
 import info.fandroid.chat.ui.register.RegisterActivity
 import info.fandroid.chat.ui.register.RegisterFragment
@@ -54,6 +55,7 @@ interface AppComponent {
     fun inject(fragment: FriendsFragment)
     fun inject(fragment: FriendRequestsFragment)
     fun inject(fragment: AccountFragment)
+    fun inject(fragment: MessagesFragment)
 
     //services
     fun inject(service: FirebaseService)

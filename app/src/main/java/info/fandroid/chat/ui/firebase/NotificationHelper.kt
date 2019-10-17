@@ -10,16 +10,22 @@ import android.content.Intent
 import android.graphics.Color
 import android.media.RingtoneManager
 import android.os.Build
+import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.RemoteMessage
 import info.fandroid.chat.R
 import info.fandroid.chat.domain.friends.FriendEntity
+import info.fandroid.chat.domain.messages.ContactEntity
+import info.fandroid.chat.domain.messages.GetMessagesWithContact
+import info.fandroid.chat.domain.messages.MessageEntity
 import info.fandroid.chat.remote.service.ApiService
 import info.fandroid.chat.ui.home.HomeActivity
+import info.fandroid.chat.ui.home.MessagesActivity
 import org.json.JSONObject
 import javax.inject.Inject
 
-class NotificationHelper @Inject constructor(val context: Context) : ContextWrapper(context) {
+class NotificationHelper @Inject constructor(
+    val context: Context, val getMessagesWithContact: GetMessagesWithContact) : ContextWrapper(context) {
 
     companion object {
         const val MESSAGE = "message"
@@ -28,6 +34,7 @@ class NotificationHelper @Inject constructor(val context: Context) : ContextWrap
         const val TYPE_ADD_FRIEND = "addFriend"
         const val TYPE_APPROVED_FRIEND = "approveFriendRequest"
         const val TYPE_CANCELLED_FRIEND_REQUEST = "cancelFriendRequest"
+        const val TYPE_SEND_MESSAGE = "sendMessage"
 
         const val notificationId = 110
     }
@@ -73,6 +80,7 @@ class NotificationHelper @Inject constructor(val context: Context) : ContextWrap
             TYPE_ADD_FRIEND -> sendAddFriendNotification(jsonMessage)
             TYPE_APPROVED_FRIEND -> sendApprovedFriendNotification(jsonMessage)
             TYPE_CANCELLED_FRIEND_REQUEST -> sendCancelledFriendNotification(jsonMessage)
+            TYPE_SEND_MESSAGE -> sendMessageNotification(jsonMessage)
         }
     }
 
@@ -116,6 +124,24 @@ class NotificationHelper @Inject constructor(val context: Context) : ContextWrap
         )
     }
 
+    private fun sendMessageNotification(jsonMessage: JSONObject) {
+        val message = parseMessage(jsonMessage)
+
+        getMessagesWithContact(GetMessagesWithContact.Params(message.senderId, true))
+
+        val intent = Intent(context, MessagesActivity::class.java)
+
+        intent.putExtra(ApiService.PARAM_CONTACT_ID, message.contact?.id)
+        intent.putExtra(ApiService.PARAM_NAME, message.contact?.name)
+        intent.putExtra("type", TYPE_SEND_MESSAGE)
+
+        createNotification(
+            "${message.contact?.name} ${context.getString(R.string.send_message)}",
+            message.message,
+            intent
+        )
+    }
+
 
     private fun parseFriend(jsonMessage: JSONObject): FriendEntity {
 
@@ -134,6 +160,20 @@ class NotificationHelper @Inject constructor(val context: Context) : ContextWrap
         val image = requestUser.getString(ApiService.PARAM_USER_ID)
 
         return FriendEntity(id, name, email, friendsId, status, image)
+    }
+
+    private fun parseMessage(jsonMessage: JSONObject): MessageEntity {
+        val senderUser = jsonMessage.getJSONObject(ApiService.PARAM_SENDER_USER)
+        val senderName = senderUser.getString(ApiService.PARAM_NAME)
+        val senderImage = senderUser.getString(ApiService.PARAM_IMAGE)
+
+        val id = jsonMessage.getLong(ApiService.PARAM_MESSAGE_ID)
+        val senderId = jsonMessage.getLong(ApiService.PARAM_SENDER_USER_ID)
+        val receiverId = jsonMessage.getLong(ApiService.PARAM_RECEIVED_USER_ID)
+        val message = jsonMessage.getString(ApiService.PARAM_MESSAGE)
+        val type = jsonMessage.getInt(ApiService.PARAM_MESSAGE_TYPE)
+
+        return MessageEntity(id, senderId, receiverId, message, 0, type, ContactEntity(senderId, senderName, senderImage))
     }
 
     private fun createNotification(title: String, message: String, intent: Intent) {

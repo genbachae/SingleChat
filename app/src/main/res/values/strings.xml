@@ -69,6 +69,8 @@
     <string name="gallery">Галерея</string>
 
     <string name="success_edit_user">Данные обновлены</string>
+    <string name="message">Сообщение</string>
+    <string name="send_message">отправляет вам сообщение</string>
 
 
 </resources>

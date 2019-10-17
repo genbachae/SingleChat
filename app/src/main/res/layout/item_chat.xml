@@ -4,10 +4,9 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
         <variable
-                name="friend"
-                type="info.fandroid.chat.domain.friends.FriendEntity" />
+                name="message"
+                type="info.fandroid.chat.domain.messages.MessageEntity" />
 
     </data>
 
@@ -19,6 +18,7 @@
             android:paddingEnd="16dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
+            android:background="?attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
             android:divider="@drawable/contact_divider">
@@ -29,7 +29,7 @@
                 android:layout_width="@dimen/account_photo_dim"
                 android:layout_height="@dimen/account_photo_dim"
                 android:src="@drawable/ic_account_circle"
-                app:profileImage="@{friend.image}"/>
+                app:profileImage="@{message.contact.image}"/>
 
         <LinearLayout
                 android:layout_centerVertical="true"
@@ -38,12 +38,10 @@
                 android:layout_toEndOf="@+id/imgPhoto"
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="@dimen/small_margin"
-                android:layout_toStartOf="@+id/removeContainer"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="8dp"
-                android:layout_marginStart="@dimen/small_margin"
-                android:layout_marginEnd="@dimen/small_margin">
+                android:layout_marginStart="@dimen/small_margin">
 
             <TextView
                     android:id="@+id/tvName"
@@ -54,50 +52,31 @@
                     android:maxLines="1"
                     android:textColor="#191919"
                     android:textSize="18sp"
-                    android:text="@{friend.name}"
+                    android:text="@{message.contact.name}"
                     tools:text="@string/name" />
 
             <TextView
-                    android:id="@+id/tvStatus"
+                    android:id="@+id/tvMessage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:visibility="@{friend.status.empty ? View.GONE : View.VISIBLE}"
-                    android:text="@{friend.status}"
-                    tools:text="@string/status"
+                    android:text="@{message.message}"
+                    tools:text="Текст"
                     android:textSize="14sp" />
         </LinearLayout>
 
-        <LinearLayout
-                android:id="@+id/removeContainer"
+        <TextView
+                android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                tools:text="Дата"
+                android:textSize="14sp"
+                app:date="@{message.date}"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
                 android:layout_centerInParent="true">
-
-            <FrameLayout
-                    android:id="@+id/btnRemove"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?attr/selectableItemBackgroundBorderless">
-
-                <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:background="@drawable/rounded_button"
-                        android:src="@drawable/ic_close_black_24dp"
-                        android:backgroundTint="@color/darkGrey"
-                        android:tint="@color/white"
-                        android:padding="8dp" />
-
-            </FrameLayout>
-        </LinearLayout>
+        </TextView>
 
     </RelativeLayout>
 </layout>

@@ -9,7 +9,7 @@ import info.fandroid.chat.R
 abstract class BaseListFragment : BaseFragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var lm: RecyclerView.LayoutManager
+    protected lateinit var lm: RecyclerView.LayoutManager
 
     protected abstract val viewAdapter: BaseAdapter<*>
 
