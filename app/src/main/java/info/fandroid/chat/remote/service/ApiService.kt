@@ -1,10 +1,10 @@
 package info.fandroid.chat.remote.service
 
-import info.fandroid.chat.domain.account.AccountEntity
 import info.fandroid.chat.remote.account.AuthResponse
 import info.fandroid.chat.remote.core.BaseResponse
 import info.fandroid.chat.remote.friends.GetFriendRequestsResponse
 import info.fandroid.chat.remote.friends.GetFriendsResponse
+import info.fandroid.chat.remote.messages.GetMessagesResponse
 import retrofit2.Call
 import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
@@ -23,6 +23,9 @@ interface ApiService {
         const val GET_FRIENDS = "getContactsByUser.php"
         const val GET_FRIEND_REQUESTS = "getFriendRequestsByUser.php"
         const val EDIT_USER = "editUser.php"
+        const val SEND_MESSAGE = "sendMessage.php"
+        const val GET_LAST_MESSAGES = "getLastMessagesByUser.php"
+        const val GET_MESSAGES_WITH_CONTACT = "getMessagesByUserWithContact.php"
 
         //params
         const val PARAM_EMAIL = "email"
@@ -41,6 +44,18 @@ interface ApiService {
         const val PARAM_IMAGE_NEW_NAME = "image_new_name"
         const val PARAM_IMAGE_UPLOADED = "image_uploaded"
         const val PARAM_IMAGE = "image"
+
+        const val PARAM_SENDER_ID = "sender_id"
+        const val PARAM_RECEIVER_ID = "receiver_id"
+        const val PARAM_MESSAGE = "message"
+        const val PARAM_MESSAGE_TYPE = "message_type_id"
+        const val PARAM_MESSAGE_DATE = "message_date"
+        const val PARAM_CONTACT_ID = "contact_id"
+
+        const val PARAM_SENDER_USER = "senderUser"
+        const val PARAM_SENDER_USER_ID = "senderUserId"
+        const val PARAM_RECEIVED_USER_ID = "receivedUserId"
+        const val PARAM_MESSAGE_ID = "message_id"
     }
 
     @FormUrlEncoded
@@ -82,4 +97,17 @@ interface ApiService {
     @FormUrlEncoded
     @POST(EDIT_USER)
     fun editUser(@FieldMap params: Map<String, String>): Call<AuthResponse>
+
+
+    @FormUrlEncoded
+    @POST(SEND_MESSAGE)
+    fun sendMessage(@FieldMap params: Map<String, String>): Call<BaseResponse>
+
+    @FormUrlEncoded
+    @POST(GET_LAST_MESSAGES)
+    fun getLastMessages(@FieldMap params: Map<String, String>): Call<GetMessagesResponse>
+
+    @FormUrlEncoded
+    @POST(GET_MESSAGES_WITH_CONTACT)
+    fun getMessagesWithContact(@FieldMap params: Map<String, String>): Call<GetMessagesResponse>
 }
