@@ -7,8 +7,10 @@ import dagger.Provides
 import info.fandroid.chat.cache.AccountCacheImpl
 import info.fandroid.chat.cache.ChatDatabase
 import info.fandroid.chat.cache.SharedPrefsManager
+import info.fandroid.chat.cache.messages.MessagesDao
 import info.fandroid.chat.data.account.AccountCache
 import info.fandroid.chat.data.friends.FriendsCache
+import info.fandroid.chat.data.messages.MessagesCache
 import javax.inject.Singleton
 
 @Module
@@ -34,5 +36,11 @@ class CacheModule {
     @Singleton
     fun provideFriendsCache(chatDatabase: ChatDatabase): FriendsCache {
         return chatDatabase.friendsDao
+    }
+
+    @Provides
+    @Singleton
+    fun provideMessagesCache(chatDatabase: ChatDatabase): MessagesCache {
+        return chatDatabase.messagesDao
     }
 }

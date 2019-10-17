@@ -12,9 +12,13 @@ import info.fandroid.chat.data.friends.FriendsCache
 import info.fandroid.chat.data.friends.FriendsRemote
 import info.fandroid.chat.data.friends.FriendsRepositoryImpl
 import info.fandroid.chat.data.media.MediaRepositoryImpl
+import info.fandroid.chat.data.messages.MessagesCache
+import info.fandroid.chat.data.messages.MessagesRemote
+import info.fandroid.chat.data.messages.MessagesRepositoryImpl
 import info.fandroid.chat.domain.account.AccountRepository
 import info.fandroid.chat.domain.friends.FriendsRepository
 import info.fandroid.chat.domain.media.MediaRepository
+import info.fandroid.chat.domain.messages.MessagesRepository
 import javax.inject.Singleton
 
 @Module
@@ -40,5 +44,11 @@ class AppModule(private val context: Context) {
     @Singleton
     fun provideMediaRepository(context: Context): MediaRepository {
         return MediaRepositoryImpl(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMessagesRepository(remote: MessagesRemote, cache: MessagesCache, accountCache: AccountCache): MessagesRepository {
+        return MessagesRepositoryImpl(remote, cache, accountCache)
     }
 }
