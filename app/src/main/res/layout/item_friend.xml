@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
-
+<!-- Добавлен блок <data> </data>. -->
     <data>
         <import type="android.view.View"/>
         <variable
                 name="friend"
-                type="info.fandroid.chat.domain.friends.FriendEntity" />
+                type="ru.genbach.chat.domain.friends.FriendEntity" />
 
     </data>
 
@@ -22,7 +22,7 @@
             android:clickable="true"
             android:focusable="true"
             android:divider="@drawable/contact_divider">
-
+<!-- <CircleImageView>  imgPhoto – добавлено поле app:profileImage с значением friend.image. -->
         <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_centerVertical="true"
                 android:id="@+id/imgPhoto"
@@ -44,7 +44,7 @@
                 android:padding="8dp"
                 android:layout_marginStart="@dimen/small_margin"
                 android:layout_marginEnd="@dimen/small_margin">
-
+<!-- <TextView> tvName – в поле android:text установлено значение friend.name. -->
             <TextView
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
@@ -56,7 +56,8 @@
                     android:textSize="18sp"
                     android:text="@{friend.name}"
                     tools:text="@string/name" />
-
+<!-- <TextView> tvStatus – в поле android:text установлено значение friend.status. В поле android:visibility установлено значение функции,
+которая проверяет friend.status.empty(в случае true – View.GONE, в случае false – View.VISIBLE). -->
             <TextView
                     android:id="@+id/tvStatus"
                     android:layout_width="wrap_content"

@@ -3,7 +3,12 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
-
+<!-- Макет активити. Для отрисовки фрагмента и тулбара.
+Структура:
+<ConstraintLayout>
+<include layout = toolbar/> — тулбар;
+<FrameLayout id = fragmentContainer/> — контейнер для фрагмента;
+<ConstraintLayout/>                     -->
     <include
             android:id="@+id/toolbarContainer"
             layout="@layout/toolbar"/>

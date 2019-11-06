@@ -6,7 +6,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
-
+<!-- Макет тулбара. Для отрисовки тулбара и индикатора загрузки.
+Структура:
+<AppBarLayout>
+<Toolbar/> — тулбар;
+<ProgressBar/> — индикатор загрузки;
+<AppBarLayout/>         -->
     <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/BaseToolbarStyle"

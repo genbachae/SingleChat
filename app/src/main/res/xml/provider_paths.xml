@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
+    <!-- Провайдер для создания файлов. -->
     <external-path name="external_files" path="."/>
     <cache-path name="name" path="path" />
 </paths>

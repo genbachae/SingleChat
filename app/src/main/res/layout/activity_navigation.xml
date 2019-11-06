@@ -2,7 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
+    <!-- Макет активити навигации. Для отрисовки меню навигации, фрагмента и тулбара. Структура:
+<DrawerLayout>
+<ConstraintLayout>
+<include layout = toolbar/> — тулбар;
+<FrameLayout id = fragmentContainer/> — контейнер для фрагмента;
+<ConstraintLayout/>
+<include layout = navigation/> — меню навигации;
+<DrawerLayout/>-->
 
+    <!-- Оборачиваем корневой DrawerLayout в <layout> </layout> тэги. Это сгенерирует класс ActivityNavigationBinding, который нужен для связывания данных с макетом. -->
     <androidx.drawerlayout.widget.DrawerLayout
 
             android:id="@+id/drawerLayout"

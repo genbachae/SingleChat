@@ -8,7 +8,17 @@
         android:background="@color/background"
         android:padding="8dp"
         android:orientation="vertical">
+<!-- Макет фрагмента. Для отрисовки экрана регистрации.
+Структура:
+<ConstraintLayout>
+<FormEditText id = etEmail/> — поле ввода email;
+<FormEditText id = etPassword/> — поле ввода пароля;
+<FormEditText id = etConfirmPassword/> — поле ввода подтверждения пароля;
+<FormEditText id = etUserName/> — поле ввода имени;
 
+<Button id = btnNewMembership/> — кнопка регистрации;
+<Button id = btnAlreadyHaveAkk/> — кнопка перехода на экран логина(уже есть аккаунт);
+<ConstraintLayout/>      -->
 
     <com.andreabaccega.widget.FormEditText
             android:id="@+id/etEmail"

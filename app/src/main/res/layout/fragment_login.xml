@@ -8,7 +8,16 @@
         android:background="@color/background"
         android:padding="8dp"
         android:orientation="vertical">
+<!-- Макет фрагмента. Для отрисовки экрана авторизации. Структура:
 
+<ConstraintLayout>
+<FormEditText id = etEmail/> — поле ввода email;
+<FormEditText id = etPassword/> — поле ввода пароля;
+
+<Button id = btnLogin/> — кнопка авторизации;
+<Button id = btnForgetPassword/> — кнопка Забыл пароль;
+<Button id = btnRegister/> — кнопка перехода на экран регистрации;
+<ConstraintLayout/>                 -->
 
     <com.andreabaccega.widget.FormEditText
             android:id="@+id/etEmail"

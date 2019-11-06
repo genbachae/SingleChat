@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="message"
-                type="info.fandroid.chat.domain.messages.MessageEntity" />
+                type="ru.genbach.chat.domain.messages.MessageEntity" />
 
     </data>
 

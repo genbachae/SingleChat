@@ -6,7 +6,7 @@
     <data>
         <variable
                 name="friend"
-                type="info.fandroid.chat.domain.friends.FriendEntity" />
+                type="ru.genbach.chat.domain.friends.FriendEntity" />
 
     </data>
 
@@ -22,7 +22,7 @@
             android:paddingBottom="8dp"
             android:background="?attr/selectableItemBackground"
             android:divider="@drawable/contact_divider">
-
+<!-- <CircleImageView>  imgPhoto – добавлено поле app:profileImage с значением friend.image. -->
         <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_centerVertical="true"
                 android:id="@+id/imgPhoto"
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="8dp">
-
+<!-- <TextView> tvName – в поле android:text установлено значение friend.name. -->
             <TextView
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"

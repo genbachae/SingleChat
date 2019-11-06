@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Оборачиваем корневой элемент в <layout> </layout>. -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     
-    
+    <!-- Добавляем секцию <data> </data>, внутри которой прописываем <import/> и <variable/>. -->
+    <!-- Макет меню навигации. Для отрисовки меню навигации, фрагмента и тулбара. Структура:
+
+<NavigationView>
+<ConstraintLayout id = profileContainer> — информация о профиле.
+<TextView id = tvUserName/> — имя пользователя;
+<TextView id = tvUserEmail/> — email пользователя;
+<TextView id = tvUserStatus/> — статус пользователя;
+<ConstraintLayout/>
+
+<View/> — разделитель;
+<RelativeLayout id = rlChats> — кнопка Чаты;
+…
+<RelativeLayout/>
+
+<RelativeLayout id = rlFriendsList> — кнопка Друзья;
+…
+<RelativeLayout/>
+
+<RelativeLayout id = rlAddFriend> — кнопка Пригласить друга;
+…
+<RelativeLayout/>
+<RelativeLayout id = rlRequests> — кнопка Входящие приглашения;
+…
+<RelativeLayout/>
+
+<RelativeLayout id = btnLogout> — кнопка Выход;
+…
+<RelativeLayout/>
+<NavigationView/>-->
     <data>
         <import type="android.view.View"/>
 
         <variable
                 name="account"
-                type="info.fandroid.chat.domain.account.AccountEntity" />
+                type="ru.genbach.chat.domain.account.AccountEntity" />
     </data>
     
 
@@ -37,7 +67,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
-
+<!-- <CircleImageView>  ivUserImage – добавлено поле app:profileImage с значением account.image (из созданной variable). -->
                 <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/ivUserImage"
                         android:layout_width="48dp"
@@ -59,7 +89,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/ivUserImage"
                         app:layout_constraintTop_toTopOf="parent">
-
+<!-- <TextView> tvUserName – в поле android:text установлено значение account.name. -->
                     <TextView
                             android:id="@+id/tvUserName"
                             android:layout_width="wrap_content"
@@ -80,7 +110,8 @@
                             android:lines="1"
                             android:text="@{account.email}"
                             tools:text="@string/email" />
-
+<!-- <TextView> tvUserStatus – в поле android:text установлено значение account.status. В поле android:visibility установлено значение функции,
+которая проверяет account.status.empty(в случае true – View.GONE, в случае false – View.VISIBLE). -->
                     <TextView
                             android:id="@+id/tvUserStatus"
                             android:layout_width="match_parent"
